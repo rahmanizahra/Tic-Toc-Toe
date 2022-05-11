@@ -12,21 +12,45 @@
 </head>
 
 <body>
-    <div class="board" id="board">
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
+    <h1>Tic Toc Toe</h1>
+    <h3>Please Select type of Playing: </h3>
+    <div class="btnContainer">
+        <button class="button" id="human" onclick="showHuman()">Play with a human </button>
+        <button id="computer" onclick="showComputer">Play with computer</button>
     </div>
-    <div class="winning-message" id="winning-message">
-        <div data-winning-message-text></div>
-        <button id="restartButton">Restart</button>
+    <div class="plyHuman" id="plyHuman">
+        <div id="score" class="score">
+            <p id="ply1">Player 1: 0</p>
+            <p id="ply2">Player 2: 0</p>
+        </div>
+        <div class="board" id="board">
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+        </div>
+        <!-- Add two new features -->
+        <div id="new-score" class="new-score" style="margin-top: 60px;">
+            <p id="draw">Number of Draws: 0</p>
+            <p id="totalGame">Total games played: 0</p>
+        </div>
+        <div class="name">
+            <p>First Player name: <input id="name1" type="text">=> X</p>
+            <p>Second Player name: <input id="name2" type="text">=> Circle</p>
+            <button id="btn" onclick="addName()">Add</button>
+
+        </div>
+        <div class="winning-message" id="winning-message">
+            <div data-winning-message-text></div>
+            <button id="restartButton">Restart</button>
+        </div>
     </div>
+
 
 </body>
 

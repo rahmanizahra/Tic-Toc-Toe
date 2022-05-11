@@ -15,11 +15,27 @@ const board = document.getElementById('board')
 const winningMessageElement = document.getElementById('winning-message')
 const restartButton = document.getElementById('restartButton')
 const winningMessageTextElement = document.querySelector('[data-winning-message-text]')
-let circleTurn
+const score = document.getElementById('score');
+const newScore = document.getElementById('new-score');
+const player1 = document.getElementById("ply1");
+const player2 = document.getElementById("ply2");
+const totalGame = document.getElementById("totalGame");
+const Draw = document.getElementById("draw");
+let circleTurn;
+const scoreboard = {
+    player1: 0,
+    player2: 0
+};
+const gameboard = {
+    numOfDraws: 0,
+    numOfGames: 0,
+}
 
 startGame()
-
 restartButton.addEventListener('click', startGame)
+restartButton.addEventListener('click', addGame)
+
+
 
 function startGame() {
     circleTurn = false
@@ -29,6 +45,7 @@ function startGame() {
         cell.removeEventListener('click', handleClick)
         cell.addEventListener('click', handleClick, { once: true })
     })
+
     setBoardHoverClass()
     winningMessageElement.classList.remove('show')
 }
@@ -41,6 +58,9 @@ function handleClick(e) {
         endGame(false)
     } else if (isDraw()) {
         endGame(true)
+        gameboard.numOfDraws++;
+        draw.innerText = `Number of Draws: ${gameboard.numOfDraws}`;
+
     } else {
         swapTurns()
         setBoardHoverClass()
@@ -51,7 +71,17 @@ function endGame(draw) {
     if (draw) {
         winningMessageTextElement.innerText = 'Draw!'
     } else {
-        winningMessageTextElement.innerText = `${circleTurn ? "O's" : "X's"} Wins!`
+        const winner = `${circleTurn ? document.getElementById("name2").value : document.getElementById("name1").value}`
+        winningMessageTextElement.innerText = winner + ' Wins!';
+        if (winner == document.getElementById("name1").value) {
+            scoreboard.player1++;
+        } else if (winner == document.getElementById("name2").value) {
+            scoreboard.player2++;
+        }
+        score.innerHTML = `
+    <p>${document.getElementById("name1").value} : ${scoreboard.player1}</p>
+    <p>${document.getElementById("name2").value} : ${scoreboard.player2}</p>
+   `
     }
     winningMessageElement.classList.add('show')
 }
@@ -86,4 +116,18 @@ function checkWin(currentClass) {
             return cellElements[index].classList.contains(currentClass)
         })
     })
+}
+// Add players name to the game
+function addName() {
+    player1.innerHTML = document.getElementById("name1").value;
+    player2.innerHTML = document.getElementById("name2").value;
+}
+
+function addGame() {
+    gameboard.numOfGames++;
+    totalGame.innerText = `Total Games Played: ${gameboard.numOfGames}`;
+}
+
+function showHuman() {
+    document.getElementById("plyHuman").style.display = 'block';
 }
