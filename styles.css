@@ -1,5 +1,6 @@
-/* Define border0box for all elements  */
+/* import  */
 
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200;400&display=swap");
 *,
 *::after,
 *::before {
@@ -9,7 +10,11 @@
 :root {
     --cell-size: 100px;
     --mark-size: calc(var(--cell-size) * .9);
+    --bg: #1d1e22;
 }
+
+
+/* Define borderbox for all elements  */
 
 body {
     margin: 0;
@@ -102,11 +107,11 @@ h3 {
     border-top: none;
 }
 
-.cell:nth-child(3n + 1) {
+.cell:nth-child(3n+1) {
     border-left: none;
 }
 
-.cell:nth-child(3n + 3) {
+.cell:nth-child(3n+3) {
     border-right: none;
 }
 
@@ -210,4 +215,123 @@ h3 {
 
 .plyHuman {
     display: none;
+}
+
+
+/* PLAY WITH COMPUTER */
+
+
+/* ------------------ */
+
+.plyComputer {
+    display: none;
+}
+
+.container {
+    width: 100vw;
+    height: 200px;
+    max-width: 300px;
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    text-align: center;
+    margin: auto;
+    margin-top: 100px;
+}
+
+
+/* 
+body.over.container {
+    cursor: no-drop;
+}
+
+body.over.container .item {
+    pointer-events: none;
+} */
+
+.item {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.item:first-child,
+.item:nth-child(2),
+.item:nth-child(3) {
+    border-top: none;
+}
+
+.item:nth-child(3n+1) {
+    border-left: none;
+}
+
+.item:nth-child(3n+3) {
+    border-right: none;
+}
+
+.item:last-child,
+.item:nth-child(8),
+.item:nth-child(7) {
+    border-bottom: none;
+}
+
+.playerX {
+    background-image: url(https://i.ibb.co/d6LQqt1/Frame.png);
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;
+}
+
+.computer {
+    background-image: url(https://i.ibb.co/McCm47K/Frame-1.png);
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;
+}
+
+.rematch {
+    cursor: pointer;
+    padding: 20px 50px;
+    display: inline-block;
+    background-color: black;
+    color: white;
+    font-size: 24px;
+    margin-bottom: 30px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.winContainer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .8);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    flex-direction: column;
+}
+
+.winContainer button {
+    font-size: 3rem;
+    background-color: white;
+    border: 1px solid black;
+    padding: .25em .5em;
+    cursor: pointer;
+}
+
+.winContainer button:hover {
+    background-color: black;
+    color: white;
+    border-color: white;
+}
+
+.winContainer.show {
+    display: flex;
 }

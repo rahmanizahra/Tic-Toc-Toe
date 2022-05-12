@@ -1,3 +1,5 @@
+// PLAY WHITH HUMAN
+//-----------------
 const X_CLASS = 'x'
 const CIRCLE_CLASS = 'circle'
 const WINNING_COMBINATIONS = [
@@ -127,7 +129,111 @@ function addGame() {
     gameboard.numOfGames++;
     totalGame.innerText = `Total Games Played: ${gameboard.numOfGames}`;
 }
+// ADD FUNCTIONS TO CHANGE BETWEEN HUMAN AND COMPUTER
 
 function showHuman() {
     document.getElementById("plyHuman").style.display = 'block';
 }
+
+function showComputer() {
+    document.getElementById("plyComputer").style.display = 'block';
+    document.getElementById("plyHuman").style.display = 'none';
+
+}
+
+// PLAY WITH COMPUTER
+//-------------------
+
+
+const winTitle = document.getElementById("winTitle");
+const rematchBtn = document.getElementById("reMatch");
+const items = document.querySelectorAll(".item");
+const winContainer = document.getElementById("winContainer");
+const gridArray = Array.from(items);
+let tracking = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+let currentPlayer = "playerX";
+
+function init() {
+    // looping through all the board items.
+    items.forEach((item) =>
+        item.addEventListener("click", (e) => {
+            // Player Move
+            const index = gridArray.indexOf(e.target);
+            if (
+                items[index].classList.contains("playerX") ||
+                items[index].classList.contains("computer")
+            ) {
+                return;
+            }
+
+            items[index].classList.add("playerX");
+            const spliceNr = tracking.indexOf(index + 1);
+            // slicing out the move from the tracking list
+            tracking.splice(spliceNr, 1);
+
+            // win check for player
+            if (winCheck("playerX", items)) {
+                winTitle.innerHTML = "PlayerX Win!!🍻🎆🎇";
+                winContainer.classList.add('show')
+                return;
+            }
+
+            // check for draw
+            if (tracking.length === 0) {
+                winTitle.innerHTML = " It's Draw";
+                winContainer.classList.add('show')
+                return;
+            }
+
+            // Computer Move
+
+            const random = Math.floor(Math.random() * tracking.length);
+            const computerIndex = tracking[random];
+            items[computerIndex - 1].classList.add("computer");
+
+            // Splicing out the move from the tracking list
+            tracking.splice(random, 1);
+
+            // win check for the computer
+            if (winCheck("computer", items)) {
+                winTitle.innerHTML = "Computer Win!!🍻🎆🎇";
+                winContainer.classList.add('show');
+                return;
+            }
+        })
+    );
+
+    // rematch reload event
+    rematchBtn.addEventListener('click', init);
+}
+
+
+
+// win check function
+function winCheck(player, items) {
+    // let allItems = items;
+    function check(pos1, pos2, pos3) {
+        console.log(items);
+        if (
+            items[pos1].classList.contains(player) &
+            items[pos2].classList.contains(player) &
+            items[pos3].classList.contains(player)
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    if (check(0, 3, 6)) return true;
+    else if (check(1, 4, 7)) return true;
+    else if (check(2, 5, 8)) return true;
+    else if (check(0, 1, 2)) return true;
+    else if (check(3, 4, 5)) return true;
+    else if (check(6, 7, 8)) return true;
+    else if (check(0, 4, 8)) return true;
+    else if (check(2, 4, 6)) return true;
+}
+
+// initializing the game
+init();
