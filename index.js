@@ -23,6 +23,7 @@ const player1 = document.getElementById("ply1");
 const player2 = document.getElementById("ply2");
 const totalGame = document.getElementById("totalGame");
 const Draw = document.getElementById("draw");
+const totalGameCmptr = document.getElementById("totalGameCmptr");
 let circleTurn;
 const scoreboard = {
     player1: 0,
@@ -140,20 +141,32 @@ function showComputer() {
     document.getElementById("plyHuman").style.display = 'none';
 
 }
-
+//------------------------------------------------------------------
 // PLAY WITH COMPUTER
-//-------------------
+//------------------------------------------------------------------
 
 
 const winTitle = document.getElementById("winTitle");
 const rematchBtn = document.getElementById("reMatch");
 const items = document.querySelectorAll(".item");
 const winContainer = document.getElementById("winContainer");
+const drawCmptr = document.getElementById("drawCmptr");
 const gridArray = Array.from(items);
 let tracking = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 let currentPlayer = "playerX";
+const scoreCmptr = document.getElementById('scoreCmptr');
+const scoreBoardCmptr = {
+    playerX: 0,
+    Computer: 0
+};
+const gameBoardCmptr = {
+    numOfDraws: 0,
+    numOfGames: 0,
+}
 
 function init() {
+    tracking = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    currentPlayer = "playerX";
     // looping through all the board items.
     items.forEach((item) =>
         item.addEventListener("click", (e) => {
@@ -175,13 +188,19 @@ function init() {
             if (winCheck("playerX", items)) {
                 winTitle.innerHTML = "PlayerX Win!!🍻🎆🎇";
                 winContainer.classList.add('show')
+                scoreBoardCmptr.playerX++;
+                scoreCmptr.innerHTML = `
+                        <p> player X: ${scoreBoardCmptr.playerX}</p>
+                        <p> Computer : ${scoreBoardCmptr.Computer}</p>`
+
                 return;
             }
 
             // check for draw
             if (tracking.length === 0) {
                 winTitle.innerHTML = " It's Draw";
-                winContainer.classList.add('show')
+                winContainer.classList.add('show');
+                addDrawCmptr();
                 return;
             }
 
@@ -198,17 +217,17 @@ function init() {
             if (winCheck("computer", items)) {
                 winTitle.innerHTML = "Computer Win!!🍻🎆🎇";
                 winContainer.classList.add('show');
+                scoreBoardCmptr.Computer++;
+                scoreCmptr.innerHTML = `
+                        <p> player X: ${scoreBoardCmptr.playerX}</p>
+                        <p> Computer : ${scoreBoardCmptr.Computer}</p>`
                 return;
             }
         })
     );
 
-    // rematch reload event
-    rematchBtn.addEventListener('click', init);
+
 }
-
-
-
 // win check function
 function winCheck(player, items) {
     // let allItems = items;
@@ -237,3 +256,34 @@ function winCheck(player, items) {
 
 // initializing the game
 init();
+rematchBtn.addEventListener('click', removeShow)
+rematchBtn.addEventListener('click', init);
+
+
+
+// define removeShow() function
+function removeShow() {
+    // remove the SHOW screen
+    winContainer.classList.remove('show');
+    // remove all selections for previous play
+    items.forEach(cell => {
+            cell.classList.remove("playerX");
+            cell.classList.remove("computer");
+        })
+        // add one number to TOTAL GAMES PLATED
+    addGameCmptr()
+
+}
+
+// Define a function to add TOTAL GAME NUMBER
+function addGameCmptr() {
+    gameBoardCmptr.numOfGames++;
+    totalGameCmptr.innerText = `Total Games Played: ${gameBoardCmptr.numOfGames}`;
+}
+
+
+// Define a function to add DRAW NUMBER
+function addDrawCmptr() {
+    gameBoardCmptr.numOfDraws++;
+    drawCmptr.innerText = `Number of Draws: ${gameBoardCmptr.numOfDraws}`;
+}

@@ -31,6 +31,7 @@ h3 {
 }
 
 .score,
+.scoreCmptr,
 .new-score {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -38,6 +39,7 @@ h3 {
     color: rgb(49, 48, 48);
 }
 
+.scoreCmptr p:first-child,
 .score p:first-child,
 .new-score p:first-child {
     padding-left: 20px;
@@ -47,6 +49,7 @@ h3 {
     margin-top: 100px;
 }
 
+.scoreCmptr p:last-child,
 .score p:last-child,
 .new-score p:last-child {
     background-color: rgb(202, 202, 245);
