@@ -1,5 +1,6 @@
 // PLAY WHITH HUMAN
 //-----------------
+// DEFINE ALL VARIABLES
 const X_CLASS = 'x'
 const CIRCLE_CLASS = 'circle'
 const WINNING_COMBINATIONS = [
@@ -23,23 +24,23 @@ const player1 = document.getElementById("ply1");
 const player2 = document.getElementById("ply2");
 const totalGame = document.getElementById("totalGame");
 const Draw = document.getElementById("draw");
-const totalGameCmptr = document.getElementById("totalGameCmptr");
 let circleTurn;
 const scoreboard = {
     player1: 0,
     player2: 0
 };
 const gameboard = {
-    numOfDraws: 0,
-    numOfGames: 0,
-}
-
+        numOfDraws: 0,
+        numOfGames: 0,
+    }
+    // START GAME: INVOKE START GAME FUNCTION TO START PLAYING 
 startGame()
+
+// ADD EVENT LISTENER TO RESTART BUTTON 
 restartButton.addEventListener('click', startGame)
 restartButton.addEventListener('click', addGame)
 
-
-
+// DEFINE START GAME FUNCTION
 function startGame() {
     circleTurn = false
     cellElements.forEach(cell => {
@@ -48,11 +49,10 @@ function startGame() {
         cell.removeEventListener('click', handleClick)
         cell.addEventListener('click', handleClick, { once: true })
     })
-
     setBoardHoverClass()
     winningMessageElement.classList.remove('show')
 }
-
+// DEFINE HANDLE CLICK FUNCTION
 function handleClick(e) {
     const cell = e.target
     const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS
@@ -69,7 +69,7 @@ function handleClick(e) {
         setBoardHoverClass()
     }
 }
-
+// DEFINE END GAME METHOD
 function endGame(draw) {
     if (draw) {
         winningMessageTextElement.innerText = 'Draw!'
@@ -88,17 +88,17 @@ function endGame(draw) {
     }
     winningMessageElement.classList.add('show')
 }
-
+//DEFINE DRAW FUNCTION
 function isDraw() {
     return [...cellElements].every(cell => {
         return cell.classList.contains(X_CLASS) || cell.classList.contains(CIRCLE_CLASS)
     })
 }
-
+// DEFINE PLACE MARK FUNCTION
 function placeMark(cell, currentClass) {
     cell.classList.add(currentClass)
 }
-
+// DEFINE SWAP TURN FUNCTION
 function swapTurns() {
     circleTurn = !circleTurn
 }
@@ -112,7 +112,7 @@ function setBoardHoverClass() {
         board.classList.add(X_CLASS)
     }
 }
-
+// DEFINE CHECK WIN FUNCTION
 function checkWin(currentClass) {
     return WINNING_COMBINATIONS.some(combination => {
         return combination.every(index => {
@@ -130,15 +130,18 @@ function addGame() {
     gameboard.numOfGames++;
     totalGame.innerText = `Total Games Played: ${gameboard.numOfGames}`;
 }
-// ADD FUNCTIONS TO CHANGE BETWEEN HUMAN AND COMPUTER
+// ADD FUNCTIONS TO CHANGE PLAYING BETWEEN HUMAN AND COMPUTER
 
 function showHuman() {
     document.getElementById("plyHuman").style.display = 'block';
+    document.getElementById("img").style.display = 'none';
 }
 
 function showComputer() {
     document.getElementById("plyComputer").style.display = 'block';
     document.getElementById("plyHuman").style.display = 'none';
+    document.getElementById("img").style.display = 'none';
+
 
 }
 //------------------------------------------------------------------
@@ -151,6 +154,7 @@ const rematchBtn = document.getElementById("reMatch");
 const items = document.querySelectorAll(".item");
 const winContainer = document.getElementById("winContainer");
 const drawCmptr = document.getElementById("drawCmptr");
+const totalGameCmptr = document.getElementById("totalGameCmptr");
 const gridArray = Array.from(items);
 let tracking = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 let currentPlayer = "playerX";
