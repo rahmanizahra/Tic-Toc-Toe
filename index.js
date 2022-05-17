@@ -102,7 +102,7 @@ function placeMark(cell, currentClass) {
 function swapTurns() {
     circleTurn = !circleTurn
 }
-
+// DEFINE SET BOARD HOVER CLASS
 function setBoardHoverClass() {
     board.classList.remove(X_CLASS)
     board.classList.remove(CIRCLE_CLASS)
@@ -125,7 +125,7 @@ function addName() {
     player1.innerHTML = document.getElementById("name1").value;
     player2.innerHTML = document.getElementById("name2").value;
 }
-
+// ADD TOTAL GAME NUMBERS
 function addGame() {
     gameboard.numOfGames++;
     totalGame.innerText = `Total Games Played: ${gameboard.numOfGames}`;
@@ -148,7 +148,7 @@ function showComputer() {
 // PLAY WITH COMPUTER
 //------------------------------------------------------------------
 
-
+// DEFINE ALL VARIABLES
 const winTitle = document.getElementById("winTitle");
 const rematchBtn = document.getElementById("reMatch");
 const items = document.querySelectorAll(".item");
@@ -234,9 +234,7 @@ function init() {
 }
 // win check function
 function winCheck(player, items) {
-    // let allItems = items;
     function check(pos1, pos2, pos3) {
-        console.log(items);
         if (
             items[pos1].classList.contains(player) &
             items[pos2].classList.contains(player) &
@@ -274,7 +272,7 @@ function removeShow() {
             cell.classList.remove("playerX");
             cell.classList.remove("computer");
         })
-        // add one number to TOTAL GAMES PLATED
+        // add one number to TOTAL GAMES PLAYED
     addGameCmptr()
 
 }
